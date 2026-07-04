@@ -16,3 +16,7 @@
 ## 2026-06-28 - [Cache Expensive Sync Operations During Astro Build]
 **Learning:** In Astro static site generation, synchronous operations like `execSync` placed in layout or frequently used component scripts (like `Footer.astro`) execute individually for *every* page generated. This sequentially blocks the main thread, causing severe build slowdowns as the site grows.
 **Action:** Always cache the results of expensive, invariant synchronous operations (like fetching git commit info) in the module scope or using `globalThis` so they execute only once per build process, significantly improving `pnpm build` times.
+
+## 2023-10-27 - [Enable Astro Prefetching and ClientRouter]
+**Learning:** Out-of-the-box Astro performs full page reloads on navigation. For content-heavy sites (like blogs or portfolios), this creates unnecessary latency and screen flashes.
+**Action:** Always enable `prefetch` in `astro.config.ts` (e.g., `prefetch: { prefetchAll: true, defaultStrategy: 'hover' }`) to fetch resources before the user clicks, and include `<ClientRouter />` (from `astro:transitions`) in the `<head>` to enable SPA-like in-place DOM updates for near-instant navigations.

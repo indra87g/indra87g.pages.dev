@@ -1,4 +1,6 @@
 ---
+import { ClientRouter } from 'astro:transitions'
+
 import config from '@/config'
 
 interface Props {
@@ -41,6 +43,8 @@ const siteDescription = description ?? config.description
   <meta property="twitter:url" content={Astro.url} />
   <meta property="twitter:title" content={siteTitle} />
   <meta property="twitter:description" content={siteDescription} />
+
+  <ClientRouter />
 
 <script is:inline>
   const theme = (() => {
