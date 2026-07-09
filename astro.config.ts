@@ -35,4 +35,8 @@ export default defineConfig({
 
     site: 'https://indra87g.is-a.dev/',
     output: 'static',
+    prefetch: {
+        prefetchAll: true,
+        defaultStrategy: 'hover',
+    },
 })
