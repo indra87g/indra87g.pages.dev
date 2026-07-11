@@ -20,3 +20,7 @@
 ## 2023-10-27 - [Enable Astro Prefetching and ClientRouter]
 **Learning:** Out-of-the-box Astro performs full page reloads on navigation. For content-heavy sites (like blogs or portfolios), this creates unnecessary latency and screen flashes.
 **Action:** Always enable `prefetch` in `astro.config.ts` (e.g., `prefetch: { prefetchAll: true, defaultStrategy: 'hover' }`) to fetch resources before the user clicks, and include `<ClientRouter />` (from `astro:transitions`) in the `<head>` to enable SPA-like in-place DOM updates for near-instant navigations.
+
+## 2024-05-30 - [Eliminate Redundant React Islands & Inline Theme Scripts]
+**Learning:** Rendering multiple instances of the same React component (like `ThemeSwitcher` for desktop and mobile) inside Astro islands (`client:idle`) forces the client to download, parse, and hydrate multiple identical component states, duplicating DOM nodes and event listeners unnecessarily. Furthermore, calling theme initialization functions (like `colorMode()`) immediately after an identical inline `<script>` already blocked parsing in `<head>` causes redundant and expensive layout thrashing.
+**Action:** Structure layouts to share a single React interactive component instance when possible, using CSS breakpoints (`hidden md:flex`) to display it contextually. Also, audit theme toggle scripts to ensure initial application logic only executes once per page load to prevent FOUC without duplicate execution overhead.
