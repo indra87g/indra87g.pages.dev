@@ -24,3 +24,7 @@
 ## 2024-05-30 - [Eliminate Redundant React Islands & Inline Theme Scripts]
 **Learning:** Rendering multiple instances of the same React component (like `ThemeSwitcher` for desktop and mobile) inside Astro islands (`client:idle`) forces the client to download, parse, and hydrate multiple identical component states, duplicating DOM nodes and event listeners unnecessarily. Furthermore, calling theme initialization functions (like `colorMode()`) immediately after an identical inline `<script>` already blocked parsing in `<head>` causes redundant and expensive layout thrashing.
 **Action:** Structure layouts to share a single React interactive component instance when possible, using CSS breakpoints (`hidden md:flex`) to display it contextually. Also, audit theme toggle scripts to ensure initial application logic only executes once per page load to prevent FOUC without duplicate execution overhead.
+
+## 2024-05-30 - [Defer Hydration of Hidden Mobile Components]
+**Learning:** Using `client:idle` for conditionally hidden components (like a mobile nav menu with `md:hidden`) causes desktop clients to needlessly download and hydrate JavaScript that they will never use, wasting bandwidth and CPU cycles.
+**Action:** When a component is only visible on certain viewports via CSS breakpoints, use the corresponding Astro `client:media` directive (e.g., `client:media="(max-width: 767px)"`) to guarantee the JS is only loaded and executed when the component can actually be interacted with.
