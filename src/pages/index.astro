@@ -71,7 +71,7 @@ const projects = projectEntries
     <h2 class="text-3xl font-bold text-center">Recent Posts</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
       {
-        posts.map((post) => (
+        posts.map((post, index) => (
           <PostCard
             url={`/blog/${post.slug}`}
             title={post.data.title}
@@ -79,6 +79,8 @@ const projects = projectEntries
             publishDate={post.data.publishDate.toISOString().slice(0, 10)}
             heroImage={post.data.heroImage}
             heroAlt={post.data.heroAlt}
+            loading={index < 2 ? 'eager' : 'lazy'}
+            fetchpriority={index < 2 ? 'high' : 'auto'}
           />
         ))
       }
@@ -89,7 +91,7 @@ const projects = projectEntries
     <h2 class="text-3xl font-bold text-center">Recent Projects</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
       {
-        projects.map((project) => (
+        projects.map((project, index) => (
           <ProjectCard
             url={`/project/${project.slug}`}
             title={project.data.title}
@@ -97,6 +99,8 @@ const projects = projectEntries
             publishDate={project.data.publishDate.toISOString().slice(0, 10)}
             heroImage={project.data.heroImage}
             heroAlt={project.data.heroAlt}
+            loading={index < 2 ? 'eager' : 'lazy'}
+            fetchpriority={index < 2 ? 'high' : 'auto'}
           />
         ))
       }

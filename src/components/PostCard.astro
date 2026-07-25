@@ -1,7 +1,16 @@
 ---
 import { Image } from 'astro:assets'
-const { url, heroImage, heroAlt, title, description, draft, publishDate } =
-    Astro.props
+const {
+    url,
+    heroImage,
+    heroAlt,
+    title,
+    description,
+    draft,
+    publishDate,
+    loading = 'lazy',
+    fetchpriority = 'auto',
+} = Astro.props
 ---
 
 <a
@@ -14,6 +23,8 @@ const { url, heroImage, heroAlt, title, description, draft, publishDate } =
     src={heroImage}
     alt={heroAlt}
     class="hover:transform-perspective mb-2 rounded-t-2xl transition-transform duration-300"
+    loading={loading}
+    fetchpriority={fetchpriority}
   />
   <h2 class="text-xl font-heading w500:text-lg">
     {title}

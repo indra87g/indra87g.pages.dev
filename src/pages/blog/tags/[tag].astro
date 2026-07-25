@@ -35,7 +35,7 @@ const { posts } = Astro.props
   </h2>
   <div class="grid grid-cols-2 gap-5 w700:grid-cols-1">
     {
-      posts.map((post) => (
+      posts.map((post, index) => (
         <Card
           url={`/${post.slug}`}
           heroImage={post.data.heroImage}
@@ -43,6 +43,8 @@ const { posts } = Astro.props
           title={post.data.title}
           description={post.data.description}
           publishDate={formatDate(post.data.publishDate)}
+          loading={index < 2 ? 'eager' : 'lazy'}
+          fetchpriority={index < 2 ? 'high' : 'auto'}
         />
       ))
     }

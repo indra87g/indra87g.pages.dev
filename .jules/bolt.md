@@ -28,3 +28,7 @@
 ## 2024-05-30 - [Defer Hydration of Hidden Mobile Components]
 **Learning:** Using `client:idle` for conditionally hidden components (like a mobile nav menu with `md:hidden`) causes desktop clients to needlessly download and hydrate JavaScript that they will never use, wasting bandwidth and CPU cycles.
 **Action:** When a component is only visible on certain viewports via CSS breakpoints, use the corresponding Astro `client:media` directive (e.g., `client:media="(max-width: 767px)"`) to guarantee the JS is only loaded and executed when the component can actually be interacted with.
+
+## 2024-05-30 - [Eager Load Dynamic Card Images for LCP]
+**Learning:** While Astro's `<Image />` component defaults to `loading="lazy"` (which is excellent for general performance), applying this blindly to dynamically generated card grids (like recent posts or projects on a homepage or paginated lists) causes significant LCP (Largest Contentful Paint) regressions. The first few cards are often above the fold, and delaying their image load negatively impacts perceived performance.
+**Action:** When mapping over content collections to render card grids, always use the map `index` to selectively apply `loading="eager"` and `fetchpriority="high"` to the first 1-2 items (e.g., `loading={index < 2 ? 'eager' : 'lazy'}`). Ensure the underlying Card components are updated to accept and pass through these attributes.
